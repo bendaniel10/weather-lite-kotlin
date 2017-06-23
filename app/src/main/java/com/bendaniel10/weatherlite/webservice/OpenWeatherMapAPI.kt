@@ -11,8 +11,8 @@ interface OpenWeatherMapAPI {
 
     @GET("forecast")
     fun getForecastForFiveDays(@Query("appid") appId: String,
-                               @Query("lon") longitude: Long,
-                               @Query("lat") latitude: Long) : Call<WeatherResponse>
+                               @Query("lon") longitude: Double,
+                               @Query("lat") latitude: Double) : Call<WeatherResponse?>
 
 
 }

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Weather Lite</string>
     <string name="weather_status">Weather status</string>
+    <string name="loading_weather_title">Loading</string>
+    <string name="loading_weather_desc">Weather information is being loaded. Please wait.</string>
+    <string name="an_error_occured_please_try_again_later">An error occured, please try again later</string>
 </resources>

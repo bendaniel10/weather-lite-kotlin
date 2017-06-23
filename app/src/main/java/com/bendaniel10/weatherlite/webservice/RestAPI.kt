@@ -10,12 +10,12 @@ import javax.inject.Named
 /**
  * Created by bendaniel on 23/06/2017.
  */
-class RestAPI @Inject constructor(val converterFactory: Converter.Factory,
-                                  @Named("baseUrl") val baseUrl: String,
-                                  @Named("weatherApiKey") val weatherApiKey: String,
-                                  val okHttpClient: OkHttpClient) {
+class RestAPI @Inject constructor(converterFactory: Converter.Factory,
+                                  @Named("baseUrl") baseUrl: String,
+                                  private @Named("weatherApiKey") val weatherApiKey: String,
+                                  okHttpClient: OkHttpClient) {
 
-    private var openWeatherAPI: OpenWeatherMapAPI?
+    private var openWeatherAPI: OpenWeatherMapAPI
 
     init {
 
@@ -28,9 +28,9 @@ class RestAPI @Inject constructor(val converterFactory: Converter.Factory,
         openWeatherAPI = retrofit.create(OpenWeatherMapAPI::class.java)
     }
 
-    fun getForecastForFiveDays(latitude: Long, longitude: Long): Call<WeatherResponse>? {
+    fun getForecastForFiveDays(latitude: Double, longitude: Double): Call<WeatherResponse?> {
 
-        return openWeatherAPI?.getForecastForFiveDays(appId = weatherApiKey, latitude = latitude, longitude = longitude)
+        return openWeatherAPI.getForecastForFiveDays(appId = weatherApiKey, latitude = latitude, longitude = longitude)
 
     }
 }

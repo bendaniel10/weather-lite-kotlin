@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bendaniel10.weatherlite">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".app.WeatherLiteApplication"
         android:allowBackup="true"

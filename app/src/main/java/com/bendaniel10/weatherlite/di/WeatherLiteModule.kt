@@ -1,10 +1,15 @@
 package com.bendaniel10.weatherlite.di
 
 import com.bendaniel10.weatherlite.app.WeatherLiteApplication
+import com.bendaniel10.weatherlite.service.WeatherLiteService
+import com.bendaniel10.weatherlite.service.impl.WeatherLiteServiceImpl
+import com.bendaniel10.weatherlite.viewmodel.WeatherLiteViewModel
+import com.bendaniel10.weatherlite.webservice.RestAPI
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -39,28 +44,64 @@ import javax.inject.Named
     }
 
     @Provides
-    fun provideOkHttpClient(connectionTimeOutSecs: Long, readTimeOutSecs: Long, interceptors: Array<Interceptor>?): OkHttpClient {
+    fun provideOkHttpClient(@Named("connectionTimeOutSecs") connectionTimeOutSecs: Long,
+                            @Named("readTimeOutSecs") readTimeOutSecs: Long,
+                            @Named("interceptor") interceptor: Interceptor?): OkHttpClient {
 
         val okHttpClient = OkHttpClient().newBuilder()
                 .connectTimeout(connectionTimeOutSecs, TimeUnit.SECONDS)
                 .readTimeout(readTimeOutSecs, TimeUnit.SECONDS)
                 .build()
 
-        interceptors?.let {
+        interceptor?.let {
 
             val interceptorBuilder = okHttpClient.newBuilder()
 
-            for (interceptor in interceptors) {
-
-                interceptorBuilder.addInterceptor(interceptor)
-
-            }
+            interceptorBuilder.addInterceptor(interceptor)
 
             return okHttpClient
         }
 
         return okHttpClient
 
+    }
+
+    @Provides
+    @Named("interceptor")
+    fun providesInterceptor(): Interceptor {
+
+        val logInterceptor = HttpLoggingInterceptor()
+        logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        return logInterceptor
+    }
+
+    @Provides
+    @Named("readTimeOutSecs")
+    fun provideReadTimeOutSecs(): Long = 15
+
+    @Provides
+    @Named("connectionTimeOutSecs")
+    fun provideConnectionTimeOutSecs(): Long = 15
+
+    @Provides
+    fun provideRestAPI(converterFactory: Converter.Factory,
+                       @Named("baseUrl") baseUrl: String,
+                       okHttpClient: OkHttpClient,
+                       @Named("weatherApiKey") weatherApiKey: String): RestAPI {
+
+        return RestAPI(converterFactory = converterFactory, baseUrl = baseUrl, okHttpClient = okHttpClient, weatherApiKey = weatherApiKey)
+
+    }
+
+    @Provides
+    fun provideWeatherLiteService(restAPI: RestAPI): WeatherLiteService {
+        return WeatherLiteServiceImpl(restAPI = restAPI)
+    }
+
+    @Provides
+    fun provideWeatherLiteViewModel(weatherLiteService: WeatherLiteService): WeatherLiteViewModel {
+        return WeatherLiteViewModel(weatherLiteService = weatherLiteService)
     }
 
 }

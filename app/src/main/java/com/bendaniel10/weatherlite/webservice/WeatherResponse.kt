@@ -12,7 +12,7 @@ data class WeatherResponse(@SerializedName("list") val list: Array<WeatherReport
                            @SerializedName("city") val city: City) : Serializable
 
 data class WeatherReport(@SerializedName("main") val main: Main,
-                         @SerializedName("weather") val weather: Weather,
+                         @SerializedName("weather") val weather: Array<Weather>,
                          @SerializedName("clouds") val clouds: Clouds,
                          @SerializedName("dt") val dt: Long) : Serializable
 

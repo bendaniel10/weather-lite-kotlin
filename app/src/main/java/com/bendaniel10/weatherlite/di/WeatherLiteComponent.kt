@@ -1,5 +1,6 @@
 package com.bendaniel10.weatherlite.di
 
+import com.bendaniel10.weatherlite.WeatherLiteActivity
 import dagger.Component
 
 /**
@@ -7,6 +8,8 @@ import dagger.Component
  */
 @Component(modules = arrayOf(WeatherLiteModule::class))
 interface WeatherLiteComponent {
+
+    fun inject(weatherLiteActivity: WeatherLiteActivity)
 
 
 }
