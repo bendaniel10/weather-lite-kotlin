@@ -3,6 +3,7 @@
     package="com.bendaniel10.weatherlite">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:name=".app.WeatherLiteApplication"

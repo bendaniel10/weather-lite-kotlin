@@ -53,13 +53,13 @@ import javax.inject.Named
                 .readTimeout(readTimeOutSecs, TimeUnit.SECONDS)
                 .build()
 
-        interceptor?.let {
+        if (interceptor != null) {
 
             val interceptorBuilder = okHttpClient.newBuilder()
 
             interceptorBuilder.addInterceptor(interceptor)
 
-            return okHttpClient
+            return interceptorBuilder.build()
         }
 
         return okHttpClient

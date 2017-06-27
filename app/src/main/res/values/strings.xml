@@ -4,4 +4,10 @@
     <string name="loading_weather_title">Loading</string>
     <string name="loading_weather_desc">Weather information is being loaded. Please wait.</string>
     <string name="an_error_occured_please_try_again_later">An error occured, please try again later</string>
+    <string name="request_location_permisson_rationale_dialog_title">Access to location is required.</string>
+    <string name="request_location_permisson_rationale_dialog_message">WeatherLite needs your location to show you the weather condition relevant to where you are.</string>
+    <string name="location_permission_granted">Location permission granted.</string>
+    <string name="grant_permission">Grant permission</string>
+    <string name="device_is_not_supported">This device is not supported.</string>
+    <string name="weather_condition_image">Weather condition image</string>
 </resources>
