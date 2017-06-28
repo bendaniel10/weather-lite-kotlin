@@ -9,3 +9,5 @@ The app makes use of:
 4. Retrofit
 
 This app was created to practice what I've learnt in Kotlin.
+
+The 5 day / 3 hour forecast is provided by http://openweathermap.org/api 
