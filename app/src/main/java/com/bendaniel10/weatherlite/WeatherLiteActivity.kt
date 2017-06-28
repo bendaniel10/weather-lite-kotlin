@@ -1,7 +1,6 @@
 package com.bendaniel10.weatherlite
 
 import android.Manifest
-import android.app.ProgressDialog
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.graphics.Bitmap
@@ -29,7 +28,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import javax.inject.Inject
 
 class WeatherLiteActivity : AppCompatActivity(), WeatherLiteInteraction, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -76,7 +74,7 @@ class WeatherLiteActivity : AppCompatActivity(), WeatherLiteInteraction, GoogleA
 
         binding.rootView.isRefreshing = true
 
-        lastLocation.let {
+        if (lastLocation != null) {
 
             val weatherForecastSubscription = Single.fromCallable { viewModel?.getWeatherForecast(lastLocation!!.latitude, lastLocation!!.longitude) }
                     .subscribeOn(Schedulers.io())
@@ -106,9 +104,11 @@ class WeatherLiteActivity : AppCompatActivity(), WeatherLiteInteraction, GoogleA
 
     private fun processWeatherConditionIconDrawableResponse(bitmap: Bitmap?, ex: Throwable?) {
 
-        bitmap?.let {
+        if (bitmap != null) {
             binding.weatherStatusImg.setImageBitmap(bitmap)
-        } ?: Log.e(TAG, "Exception occurred", ex)
+        } else {
+            Log.e(TAG, "Exception occurred", ex)
+        }
 
     }
 

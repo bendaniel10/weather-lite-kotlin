@@ -23,9 +23,11 @@ class WeatherLiteViewModel @Inject constructor(private val weatherLiteService: W
 
     fun updateUsingWeatherResponse(weatherResponse: WeatherResponse) {
 
-        temperature.set("${weatherResponse.list.first().main.temp.toCelsiusFormatted()} º C")
-        weatherSummary.set(weatherResponse.list.first().weather.first().description)
-        weatherConditionIcon.onNext(weatherResponse.list.first().weather.first().icon)
+        val firstWeatherReport = weatherResponse.list.first();
+
+        temperature.set("${firstWeatherReport.main.temp.toCelsiusFormatted()} º C")
+        weatherSummary.set("${firstWeatherReport.weather.first().description} | ${weatherResponse.city.name}, ${weatherResponse.city.country}")
+        weatherConditionIcon.onNext(firstWeatherReport.weather.first().icon)
     }
 
     fun getWeatherConditionBitmapForIcon(icon: String?): Bitmap? {

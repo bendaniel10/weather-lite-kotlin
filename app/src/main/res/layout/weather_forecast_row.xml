@@ -14,8 +14,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:contentDescription="@string/weather_condition_image"
-            android:src="@mipmap/ic_launcher" />
+            android:contentDescription="@string/weather_condition_image" />
 
         <TextView
             android:id="@+id/weatherSummaryTxt"

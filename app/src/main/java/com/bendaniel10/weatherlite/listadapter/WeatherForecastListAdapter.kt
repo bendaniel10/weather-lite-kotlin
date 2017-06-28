@@ -2,13 +2,16 @@ package com.bendaniel10.weatherlite.listadapter
 
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bendaniel10.weatherlite.BuildConfig
 import com.bendaniel10.weatherlite.R
+import com.bendaniel10.weatherlite.app.WeatherLiteApplication
 import com.bendaniel10.weatherlite.databinding.WeatherForecastRowBinding
 import com.bendaniel10.weatherlite.webservice.WeatherReport
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,13 +36,21 @@ class WeatherForecastListAdapter(private val weatherReports: MutableList<Weather
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
 
         val weatherReport = weatherReports[position]
+        val context = holder.itemView.context
 
         if (holder.binding != null) {
 
             holder.binding!!.dateTxt.text = SimpleDateFormat("d MMM, HH:mm aaa", Locale.getDefault()).format(Date(weatherReport.dt * 1000L))
             holder.binding!!.weatherSummaryTxt.text = weatherReport.weather.first().description
 
-            Log.d("DATE", "${weatherReport.dt} value for date.")
+            Picasso.Builder(context)
+                    .listener({ picasso, uri, exception -> if (BuildConfig.DEBUG) exception.printStackTrace() })
+                    .loggingEnabled(BuildConfig.DEBUG)
+                    .build()
+                    .load("${WeatherLiteApplication.OPEN_WEATHER_API_IMAGE_URL}${weatherReport.weather.first().icon}.png")
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(holder.binding!!.weatherStatusImg)
+
         }
 
 

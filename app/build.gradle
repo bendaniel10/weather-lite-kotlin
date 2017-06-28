@@ -46,6 +46,7 @@ dependencies {
     compile "com.google.dagger:dagger:$dagger_version"
     compile "com.google.dagger:dagger-android-support:$dagger_version"
     compile "com.google.android.gms:play-services-location:$gmsVer"
+    compile 'com.squareup.picasso:picasso:2.5.2'
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     kapt "com.android.databinding:compiler:$gradle_version"
