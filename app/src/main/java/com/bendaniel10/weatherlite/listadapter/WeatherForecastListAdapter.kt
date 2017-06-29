@@ -10,7 +10,6 @@ import com.bendaniel10.weatherlite.R
 import com.bendaniel10.weatherlite.app.WeatherLiteApplication
 import com.bendaniel10.weatherlite.databinding.WeatherForecastRowBinding
 import com.bendaniel10.weatherlite.webservice.WeatherReport
-import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,7 +47,6 @@ class WeatherForecastListAdapter(private val weatherReports: MutableList<Weather
                     .loggingEnabled(BuildConfig.DEBUG)
                     .build()
                     .load("${WeatherLiteApplication.OPEN_WEATHER_API_IMAGE_URL}${weatherReport.weather.first().icon}.png")
-                    .networkPolicy(NetworkPolicy.OFFLINE)
                     .into(holder.binding!!.weatherStatusImg)
 
         }

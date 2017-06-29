@@ -114,7 +114,7 @@ class WeatherLiteActivity : AppCompatActivity(), WeatherLiteInteraction, GoogleA
 
     private fun processWeatherResponse(weatherResponse: WeatherResponse?, ex: Throwable?) {
 
-        weatherResponse?.let {
+        if (weatherResponse != null) {
             viewModel!!.updateUsingWeatherResponse(weatherResponse)
 
             val weatherForecastListAdapter = binding.dayForcastRecyclerView.adapter as WeatherForecastListAdapter
@@ -122,7 +122,9 @@ class WeatherLiteActivity : AppCompatActivity(), WeatherLiteInteraction, GoogleA
             weatherForecastListAdapter.notifyDataSetChanged()
 
 
-        } ?: notifyWeatherRefreshFailed()
+        } else {
+            notifyWeatherRefreshFailed()
+        }
 
 
     }

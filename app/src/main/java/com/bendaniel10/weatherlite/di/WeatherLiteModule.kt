@@ -78,11 +78,11 @@ import javax.inject.Named
 
     @Provides
     @Named("readTimeOutSecs")
-    fun provideReadTimeOutSecs(): Long = 15
+    fun provideReadTimeOutSecs() = 15L
 
     @Provides
     @Named("connectionTimeOutSecs")
-    fun provideConnectionTimeOutSecs(): Long = 15
+    fun provideConnectionTimeOutSecs() = 15L
 
     @Provides
     fun provideRestAPI(converterFactory: Converter.Factory,
